@@ -24,6 +24,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: 
             - /usr/local/bundle/bin/fakeit
+            - --use-example
             - --static
             - --spec=/definitions/spec.yaml
           volumeMounts:
