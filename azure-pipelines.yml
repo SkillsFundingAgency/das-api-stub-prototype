@@ -43,7 +43,7 @@ steps:
     namespace: '$(Namespace)'
     chartName: '.'
     releaseName: '$(ReleaseName)'
-    valueFile: $(Pipeline.Workspace)/values.yml
+    valueFile: $(System.DefaultWorkingDirectory)/values.yaml
     arguments: ''
 
 - bash: helm test $(ReleaseName) --cleanup --logs
