@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/sfa-gov-uk/Apprenticeships%20Service%20Cloud%20Platform/_apis/build/status/das-api-stub-prototype?branchName=master)](https://dev.azure.com/sfa-gov-uk/Apprenticeships%20Service%20Cloud%20Platform/_build/latest?definitionId=2098&branchName=master)
+
 # Open API Spec
 
 ## Getting started
