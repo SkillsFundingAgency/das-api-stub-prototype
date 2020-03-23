@@ -54,7 +54,6 @@ steps:
     kubernetesCluster: $(AKSClusterName)
     useClusterAdmin: true
     command: test
-    namespace: '$(Namespace)'
     releaseName: '$(ReleaseName)'
     valueFile: $(System.DefaultWorkingDirectory)/values.yaml
     arguments: '--cleanup --logs'
