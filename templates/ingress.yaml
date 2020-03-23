@@ -1,0 +1,23 @@
+{{- if .Values.ingress.enabled -}}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ include "mock-open-api-spec.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+{{ include "mock-open-api-spec.labels" . | indent 4 }}
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`{{ .Values.ingress.host }}`) && PathPrefix(`/mocks/{{ .Release.Name }}`)
+      kind: Rule
+      priority: 99
+      services:
+        - name: {{ include "mock-open-api-spec.fullname" . }}
+          port: {{ .Values.service.port }}
+      middlewares:
+        - name: {{ include "mock-open-api-spec.fullname" . }}-repacepath-middleware
+  tls:
+    secretName: {{ .Values.ingress.tls.SecretName }}
+{{- end }}

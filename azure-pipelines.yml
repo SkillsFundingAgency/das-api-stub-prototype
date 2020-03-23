@@ -1,0 +1,47 @@
+trigger:
+  batch: true
+  branches:
+    include:
+      - 'master'
+
+variables:
+  - group: 'Dev Management Resources'
+  - name: azureSubscription
+    value: SFA-DAS-DevTest-ARM
+
+pr: none
+
+pool:
+  name: 'DAS - Continuous Integration'
+
+steps:
+- task: KubectlInstaller@0
+  displayName: 'Install Kubectl latest'
+- task: HelmInstaller@1
+  displayName: 'Install Helm'
+  inputs:
+    helmVersionToInstall: v2.16.0
+
+- task: HelmDeploy@0
+  displayName: 'helm init'
+  inputs:
+    connectionType: 'Kubernetes Service Connection'
+    kubernetesServiceConnection: '$(ServiceConnection)'
+    command: init
+    arguments: '--service-account tiller --history-max 200 --force-upgrade'
+
+- task: HelmDeploy@0
+  displayName: 'helm upgrade $(ReleaseName)'
+  inputs:
+    connectionType: 'Kubernetes Service Connection'
+    kubernetesServiceConnection: '$(ServiceConnection)'
+    command: upgrade
+    namespace: '$(Namespace)'
+    chartName: '.'
+    releaseName: '$(ReleaseName)}'
+    valueFile: $(Pipeline.Workspace)/values.yml
+    arguments: ''
+
+- bash: helm test $(ReleaseName) --cleanup --logs
+
+

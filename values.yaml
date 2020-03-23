@@ -1,0 +1,24 @@
+image:
+  repository: realfengjia/fakeit
+  tag: latest
+  pullPolicy: IfNotPresent
+
+snameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  name:
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  host: dev-tools.apprenticeships.education.gov.uk
+  
+  tls:
+    secretName: wildcard-apprenticeships-education-gov-uk-correct-chain
+
+resources: {}

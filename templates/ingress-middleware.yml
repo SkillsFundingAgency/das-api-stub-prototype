@@ -1,0 +1,13 @@
+{{- if .Values.ingress.enabled -}}
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ include "mock-open-api-spec.fullname" . }}-repacepath-middleware
+  namespace: {{ .Release.Namespace }}
+  labels:
+{{ include "mock-open-api-spec.labels" . | indent 4 }}
+spec:
+  replacePathRegex:
+    regex: ^/mocks/{{ .Release.Name }}/(.*)
+    replacement: /$1
+{{- end }}

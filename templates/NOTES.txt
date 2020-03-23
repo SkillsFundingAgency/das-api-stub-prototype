@@ -1,0 +1,17 @@
+####################
+~ CONGRATULATIONS! ~
+####################
+
+Your mock api is available at https://{{ .Values.ingress.host }}/mocks/{{ .Release.Name }}
+
+Here are some commands to get you going:
+=======================================
+
+Test your deployment:
+helm test {{ .Release.Name }} --cleanup --logs
+
+View pod logs:
+kubectl logs -l app.kubernetes.io/instance={{ .Release.Name }} -f -n {{ .Release.Namespace }}
+
+Delete your deployment:
+helm delete {{ .Release.Name }} --purge

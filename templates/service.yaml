@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "mock-open-api-spec.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+{{ include "mock-open-api-spec.labels" . | indent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: {{ include "mock-open-api-spec.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
