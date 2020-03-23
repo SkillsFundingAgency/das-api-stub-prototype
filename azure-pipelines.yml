@@ -25,20 +25,20 @@ steps:
 - task: HelmDeploy@0
   displayName: 'helm init'
   inputs:
-    connectionType: Azure Resource Manager
     azureSubscription: SFA-DAS-DevTest-ARM
     azureResourceGroup: $(AKSResourceGroupName)
     kubernetesCluster: $(AKSClusterName)
+    useClusterAdmin: true
     command: init
     arguments: '--client-only'
 
 - task: HelmDeploy@0
   displayName: 'helm upgrade $(ReleaseName)'
   inputs:
-    connectionType: Azure Resource Manager
     azureSubscription: SFA-DAS-DevTest-ARM
     azureResourceGroup: $(AKSResourceGroupName)
     kubernetesCluster: $(AKSClusterName)
+    useClusterAdmin: true
     command: upgrade
     namespace: '$(Namespace)'
     chartName: '.'
