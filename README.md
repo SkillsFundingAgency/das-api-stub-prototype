@@ -1,7 +1,5 @@
 # Open API Spec
 
-This helm chart 
-
 ## Getting started
 1. Clone this repo
 2. Overwrite the example content in `spec.yaml` with your open api specification

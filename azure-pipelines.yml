@@ -3,6 +3,9 @@ trigger:
   branches:
     include:
       - 'master'
+  paths:
+    exclude:
+      - README.md
 
 variables:
   - group: 'Dev Management Resources'
