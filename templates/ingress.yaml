@@ -12,12 +12,15 @@ spec:
   routes:
     - match: Host(`{{ .Values.ingress.host }}`) && PathPrefix(`/mocks/{{ .Release.Name }}`)
       kind: Rule
-      priority: 99
+      middlewares:
+        - name: secured
+        - name: {{ include "mock-open-api-spec.fullname" . }}-repacepath-middleware
       services:
         - name: {{ include "mock-open-api-spec.fullname" . }}
           port: {{ .Values.service.port }}
-      middlewares:
-        - name: {{ include "mock-open-api-spec.fullname" . }}-repacepath-middleware
   tls:
     secretName: {{ .Values.ingress.tls.SecretName }}
+    options:
+      name: enforce-tls-12
+      namespace: {{ .Release.Namespace }}
 {{- end }}
