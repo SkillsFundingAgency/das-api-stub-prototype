@@ -23,7 +23,7 @@ steps:
 - task: HelmInstaller@1
   displayName: 'Install Helm'
   inputs:
-    helmVersionToInstall: v2.16.0
+    helmVersionToInstall: v2.14.3
 
 - task: HelmDeploy@0
   displayName: 'helm init'
